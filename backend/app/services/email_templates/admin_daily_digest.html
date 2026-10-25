@@ -1,0 +1,39 @@
+<h2 style="margin:0 0 16px;color:#1e293b;font-size:20px;">【每日摘要】待处理订单与合同汇总</h2>
+
+<p style="margin:0 0 12px;color:#475569;font-size:15px;line-height:1.7;">
+管理员您好：
+</p>
+
+<p style="margin:0 0 24px;color:#475569;font-size:15px;line-height:1.7;">
+以下是当前需要您关注的待处理事项汇总（统计截至 {generated_at}）：
+</p>
+
+<!-- Summary Card -->
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:20px;margin-bottom:24px;">
+<tr><td style="padding:8px 0;">
+<p style="margin:0 0 8px;color:#64748b;font-size:14px;"><strong>待复核合同：</strong>{pending_review_count} 个</p>
+<p style="margin:0 0 8px;color:#64748b;font-size:14px;"><strong>支付待审核：</strong>{pending_payment_count} 个</p>
+<p style="margin:0 0 8px;color:#64748b;font-size:14px;"><strong>异常订单：</strong>{abnormal_order_count} 个</p>
+<p style="margin:0;color:#64748b;font-size:14px;"><strong>待处理退款：</strong>{pending_refund_count} 个</p>
+</td></tr>
+</table>
+
+<!-- Detail Section -->
+<p style="margin:0 0 12px;color:#475569;font-size:15px;line-height:1.7;">
+<strong>支付超过3日仍未确认合同的订单：</strong>
+</p>
+
+{digest_items}
+
+<!-- CTA Button -->
+<table cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+<tr>
+<td style="background:#2563eb;border-radius:8px;text-align:center;">
+<a href="{admin_url}" style="display:inline-block;padding:12px 32px;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;">前往管理后台</a>
+</td>
+</tr>
+</table>
+
+<p style="margin:0;color:#94a3b8;font-size:13px;">
+此邮件为系统每日自动发送的摘要报告。如需调整频率或内容，请联系系统管理员。
+</p>

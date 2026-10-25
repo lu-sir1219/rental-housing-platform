@@ -1,0 +1,56 @@
+.env
+.env.prod.local
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyc
+*.log
+data/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Uploads
+backend/uploads/
+
+# Dev database (SQLite)
+*.db
+
+# Docker
+docker-compose.override.yml
+
+# ER diagrams and dev docs
+docs/er-diagrams/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Office temp files
+~$*
+# uhomes-design binaries (too large, not useful for AI agents)
+uhomes-design/*.skill
+uhomes-design/screens/
+uhomes-design/fonts/
+uhomes-design/screenshots/
+
+# Misc large binaries
+.mcp/*.png
+docs/*.png
+
+# ç”Ÿäº§ç¯å¢ƒå¯†é’¥ä¸ AI å·¥å…·ç›®å½•ï¼ˆä¸æäº¤ï¼‰
+.env.prod
+.env.local
+backend/.env
+.mcp/
+.claude/
+.qoder/
+.vscode/
+# Ë½ÃÜ¶ÔÏó´æ´¢£¨ºÏÍ¬/Ç©Ãû£©Óë±¸·İÎÄ¼ş
+backend/private_objects/
+*.backup
+*.bak
+
+test_emails/

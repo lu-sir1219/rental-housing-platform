@@ -1,0 +1,90 @@
+﻿# =============================================================================
+# Development Environment — Rental Housing Matching System
+# =============================================================================
+# Usage:
+#   docker compose up -d
+# =============================================================================
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: rental_dev_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-rental_housing}
+      POSTGRES_USER: ${POSTGRES_USER:-rental}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-rental}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Auto-install pgvector extension via init script
+      - ./docker/pg-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-rental} -d ${POSTGRES_DB:-rental_housing}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    container_name: rental_dev_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: >
+      redis-server
+      --appendonly yes
+      --appendfsync everysec
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Celery 异步任务 Worker（开发环境）
+  celery-worker:
+    image: python:3.13-slim
+    container_name: rental_dev_celery_worker
+    working_dir: /app
+    command: >
+      sh -c "pip install -r requirements.txt -q &&
+             celery -A app.celery_app worker --loglevel=info --concurrency=2 --queues=celery,embedding,import"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Celery Beat 定时任务调度器（开发环境）
+  celery-beat:
+    image: python:3.13-slim
+    container_name: rental_dev_celery_beat
+    working_dir: /app
+    command: >
+      sh -c "pip install -r requirements.txt -q &&
+             celery -A app.celery_app beat --loglevel=info"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    name: rental_dev_postgres_data
+  redis_data:
+    name: rental_dev_redis_data

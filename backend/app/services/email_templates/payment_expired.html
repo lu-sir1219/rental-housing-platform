@@ -1,0 +1,32 @@
+<h2 style="margin:0 0 16px;color:#6b7280;font-size:20px;">订单已自动取消</h2>
+
+<p style="margin:0 0 12px;color:#475569;font-size:15px;line-height:1.7;">
+您好，{tenant_name}：
+</p>
+
+<p style="margin:0 0 12px;color:#475569;font-size:15px;line-height:1.7;">
+您的订单因超过支付期限未完成付款，已自动取消，房源预留已释放。
+</p>
+
+<!-- Detail Card -->
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:20px;margin-bottom:24px;">
+<tr><td style="padding:8px 0;">
+<p style="margin:0 0 8px;color:#64748b;font-size:14px;"><strong>订单编号：</strong>{order_number}</p>
+<p style="margin:0 0 8px;color:#64748b;font-size:14px;"><strong>房源名称：</strong>{property_name}</p>
+<p style="margin:0 0 8px;color:#64748b;font-size:14px;"><strong>原支付金额：</strong>{settlement_amount} {settlement_currency}</p>
+<p style="margin:0;color:#64748b;font-size:14px;"><strong>取消时间：</strong>{cancelled_at}</p>
+</td></tr>
+</table>
+
+<p style="margin:0 0 12px;color:#475569;font-size:15px;line-height:1.7;">
+如需重新预订，请浏览其他房源或联系客服获取帮助。
+</p>
+
+<!-- CTA Button -->
+<table cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+<tr>
+<td style="background:#2563eb;border-radius:8px;text-align:center;">
+<a href="{frontend_url}" style="display:inline-block;padding:12px 32px;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;">浏览更多房源</a>
+</td>
+</tr>
+</table>
